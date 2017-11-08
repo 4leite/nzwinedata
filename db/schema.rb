@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105122258) do
+ActiveRecord::Schema.define(version: 20171108040624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_sales", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.date "sale_date", null: false
+    t.integer "customers", default: 0, null: false
+    t.integer "units", default: 0, null: false
+    t.integer "sales_gross_cents", default: 0, null: false
+    t.string "sales_gross_currency", default: "NZD", null: false
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id", "sale_date"], name: "index_daily_sales_on_site_id_and_sale_date", unique: true
+    t.index ["site_id"], name: "index_daily_sales_on_site_id"
+  end
 
   create_table "sites", force: :cascade do |t|
     t.string "name"
@@ -48,5 +62,6 @@ ActiveRecord::Schema.define(version: 20171105122258) do
     t.index ["site_id"], name: "index_users_on_site_id"
   end
 
+  add_foreign_key "daily_sales", "sites"
   add_foreign_key "users", "sites"
 end

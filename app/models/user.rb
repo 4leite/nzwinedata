@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable
 
+  belongs_to :site
+
   ROLES = %i[guest minor dev global_admin]
 
   def roles=(roles)
