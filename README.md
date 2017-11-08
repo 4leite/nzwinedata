@@ -2,15 +2,16 @@
 
 This is a project for collecting wine sales data from a region.
 
-Commisioned by nzwinetours.co.nz
+Commisioned by [NZ Wine Tours](http://nzwinetours.co.nz "NZWineTours")
+
 Developed by [Jon Vivian](http://4pi.nz/ "Jon Vivian") in conjuction with [Tom Grice](http://webdesignit.co.nz/ "WebDesignIT").
 
 ## Dependancies
 
-Ruby 2.4
-Rails 5.1
-Yarn 1.2
-Postgres 9.6
+* Ruby 2.4
+* Rails 5.1
+* Yarn 1.2
+* Postgres 9.6
 
 ## Set up
 
