@@ -56,3 +56,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'cancan'
 gem 'omniauth'
+gem 'money-rails'
+gem 'administrate'
+
