@@ -24,4 +24,8 @@ class User < ApplicationRecord
     roles.include?(role)
   end
 
+  def self.all_roles
+    ROLES.map { |r| [r] }
+  end
+
 end
