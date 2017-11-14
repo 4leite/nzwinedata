@@ -6,12 +6,20 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'bootstrap' %>
+    <%= javascript_pack_tag 'bootstrap' %>
   </head>
-
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <!-- MENU -->
+    <%= render "layouts/main_menu" %>
 
-    <%= yield %>
+    <!-- ALERTS -->
+    <!-- CONTENT -->
+
+    <div class="container">
+      <%= render "layouts/alerts" %>
+      <%= yield %>
+    </div>
+
   </body>
 </html>

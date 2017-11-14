@@ -3,11 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :omniauthable
+         :omniauthable
 
   belongs_to :site
 
-  ROLES = %i[guest minor dev global_admin]
+  ROLES = %i[guest dev global_admin site_admin miner]
 
   def roles=(roles)
     roles = [*roles].map { |r| r.to_sym }

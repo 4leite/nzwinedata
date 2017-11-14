@@ -54,8 +54,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # nzwinedata
 gem 'devise'
-gem 'cancan'
+gem 'cancancan'
 gem 'omniauth'
 gem 'money-rails'
 gem 'administrate'
+#gem 'bootstrap'
+#gem 'jquery-rails'
 

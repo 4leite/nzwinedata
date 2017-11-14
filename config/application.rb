@@ -28,5 +28,10 @@ module Nzwinedata
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Include main application helpers in administrat
+    config.to_prepare do
+      Administrate::ApplicationController.helper Nzwinedata::Application.helpers
+    end
   end
 end
