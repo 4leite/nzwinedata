@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 20171108040624) do
   create_table "daily_sales", force: :cascade do |t|
     t.bigint "site_id", null: false
     t.date "sale_date", null: false
-    t.integer "customers", default: 0, null: false
-    t.integer "units", default: 0, null: false
-    t.integer "sales_gross_cents", default: 0, null: false
+    t.integer "customers", null: false
+    t.integer "units", null: false
+    t.integer "sales_gross_cents", null: false
     t.string "sales_gross_currency", default: "NZD", null: false
     t.text "notes"
     t.datetime "created_at", null: false

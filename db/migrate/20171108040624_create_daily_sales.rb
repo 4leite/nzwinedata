@@ -3,9 +3,9 @@ class CreateDailySales < ActiveRecord::Migration[5.1]
     create_table :daily_sales do |t|
       t.references :site, null:false, foreign_key: true
       t.date :sale_date, null: false
-      t.integer :customers, null: false, default: 0
-      t.integer :units, null: false, default: 0
-      t.monetize :sales_gross, default: 0
+      t.integer :customers, null: false
+      t.integer :units, null: false
+      t.monetize :sales_gross, amount: { null: false, default: nil }
       t.text :notes
 
       t.timestamps
