@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_locale
 
+  def after_sign_in_path_for(resource)
+    daily_sales_path
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:warning] = exception.message
     redirect_to root_path

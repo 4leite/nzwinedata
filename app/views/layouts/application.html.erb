@@ -10,15 +10,15 @@
     <%= javascript_pack_tag 'bootstrap' %>
   </head>
   <body>
-    <!-- MENU -->
+    
     <%= render "layouts/main_menu" %>
 
-    <!-- ALERTS -->
-    <!-- CONTENT -->
-
     <div class="container">
+      
       <%= render "layouts/alerts" %>
+
       <%= yield %>
+
     </div>
 
   </body>
