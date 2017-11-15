@@ -4,6 +4,7 @@ const webpack = require('webpack')
 environment.plugins.set('Provide', new webpack.ProvidePlugin({
       $: 'jquery',
       JQuery: 'jquery',
+      jQuery: 'jquery',
       jquery: 'jquery',
       'window.Tether': "tether",
       Popper: ['popper.js', 'default'], // for Bootstrap 4
