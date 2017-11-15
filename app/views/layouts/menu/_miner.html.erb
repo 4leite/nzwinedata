@@ -1,0 +1,11 @@
+<div class="navbar-nav">
+  <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sales
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <%= link_to_active? "List", daily_sales_path, class: "dropdown-item" %>
+      <%= link_to_active? "New", new_daily_sale_path, class: "dropdown-item" %>
+    </div>
+  </div>
+</div>

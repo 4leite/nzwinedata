@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
       <div class="navbar-nav mr-auto">
-        <%= link_to_active? 'Long', home_long_path, class: "nav-item nav-link" %>
-        <%= render "layouts/menu/admin" %>
+        <%= render "layouts/menu/miner" if can? :navbar, :daily_sales %>
+        <%= render "layouts/menu/admin" if can? :navbar, :administrate %>
       </div>
       <%= render "layouts/menu/profile" %>
     </div>
