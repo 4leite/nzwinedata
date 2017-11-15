@@ -1,0 +1,47 @@
+<%= form_with(model: daily_sale, local: true) do |f| %>
+  <div class="form-group row">
+    <% if daily_sale.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize daily_sale.errors.count, "error" %> prohibited this daily_sale from being saved:</h2>
+
+        <ul>
+          <% daily_sale.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <% if current_user.has_role? :global_admin %>
+    <div class="form-group row">
+      <%= f.label :site, class: "col-sm-2 col-form-label" %>
+      <%= f.select(:site_id, 
+                   options_from_collection_for_select(@sites, 'id', 'name', current_user.site ),
+                   {} , 
+                   class: "col-sm-2 form-control" ) %>
+    </div>
+  <% end %>
+  <div class="form-group row">
+    <%= f.label :sale_date, class: "col-sm-2" %>
+    <%= f.date_field :sale_date, class: "col-sm-2 form-control" %>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :customers, class: "col-sm-2" %>
+    <%= f.number_field :customers, class: "col-sm-2 form-control" %>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :units, class: "col-sm-2" %>
+    <%= f.number_field :units, class: "col-sm-2 form-control" %>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :sales_gross, class: "col-sm-2" %>
+    <%= f.number_field :sales_gross, class: "col-sm-2 form-control" %>
+  </div>
+
+  <div class="actions row">
+    <%= f.submit class: "col-sm-4 align-self-end btn btn-primary" %>
+  </div>
+<% end %>

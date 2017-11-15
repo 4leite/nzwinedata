@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Daily Sales</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <% if current_user.has_role? :global_admin %>
+        <th scope="col">Site</th> 
+      <% end %>
+      <th scope="col">Date</th>
+      <th scope="col">Customers</th>
+      <th scope="col">Units</th>
+      <th scope="col">Sales</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @daily_sales.each do |daily_sale| %>
+      <tr>
+        <% if current_user.has_role? :global_admin %>
+          <td><%= daily_sale.site %></td>
+        <% end %>
+        <td><%= l daily_sale.sale_date %></td>
+        <td><%= daily_sale.customers %></td>
+        <td><%= daily_sale.units %></td>
+        <td><%= daily_sale.sales_gross %></td>
+        <td><%= link_to 'Show', daily_sale %></td>
+        <td><%= link_to 'Edit', edit_daily_sale_path(daily_sale) %></td>
+        <td><%= link_to 'Destroy', daily_sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Daily Sale', new_daily_sale_path %>
