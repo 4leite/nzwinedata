@@ -61,10 +61,4 @@ gem 'cancancan'
 gem 'omniauth'
 gem 'money-rails'
 gem 'administrate'
-#gem 'bootstrap'
-#gem 'jquery-rails'
-# for nested forms in administrate
-gem 'cocoon'
-gem "administrate-field-nested_has_many",
-        git: "https://github.com/4leite/administrate-field-nested_has_many"
 

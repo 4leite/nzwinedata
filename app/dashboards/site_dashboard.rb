@@ -10,8 +10,8 @@ class SiteDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     name: Field::String,
     users: Field::HasMany,
-    daily_sales: Field::NestedHasMany.with_options(skip: :site),
-#    daily_sales: Field::HasMany,
+#    daily_sales: Field::NestedHasMany.with_options(skip: :site),
+    daily_sales: Field::HasMany,
 #    id: Field::Number,
 #    created_at: Field::DateTime,
 #    updated_at: Field::DateTime,
