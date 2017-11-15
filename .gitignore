@@ -23,3 +23,5 @@
 
 /config/database.yml
 /config/secrets.yml
+
+/administrate-field-nested_has_many
