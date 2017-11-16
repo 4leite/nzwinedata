@@ -27,5 +27,9 @@ class User < ApplicationRecord
   def self.all_roles
     ROLES.map { |r| [r] }
   end
+  
+  def to_s
+    email
+  end
 
 end
