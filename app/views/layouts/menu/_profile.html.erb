@@ -1,15 +1,15 @@
 <div class="navbar-nav my-2 my-lg-0">
   <% if user_signed_in? %>
     <div class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= current_user.email %>
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-       <%= link_to_active? "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
-       <%= link_to_active? "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+      <%= link_to_category(current_user, :registrations, { 
+        class: "nav-link dropdown-toggle", 
+        id: "navbarDropdownMenuUser" })  %> 
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
+        <%= active_link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+        <%= active_link_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
       </div>
     </div>
   <% else %>
-    <%= link_to_active? 'Sign in', new_user_session_path, class: "nav-item nav-link" %>
+    <%= active_link_to 'Sign in', new_user_session_path, class: "nav-item nav-link" %>
   <% end %>
 </div>

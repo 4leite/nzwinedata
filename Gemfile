@@ -61,4 +61,5 @@ gem 'cancancan'
 gem 'omniauth'
 gem 'money-rails'
 gem 'administrate'
-
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
