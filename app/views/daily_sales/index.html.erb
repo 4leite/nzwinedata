@@ -1,36 +1,46 @@
 <h1>Daily Sales</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <% if current_user.has_role? :global_admin %>
-        <th scope="col">Site</th> 
-      <% end %>
-      <th scope="col">Date</th>
-      <th scope="col">Customers</th>
-      <th scope="col">Units</th>
-      <th scope="col">Sales</th>
-      <th scope="col" colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @daily_sales.each do |daily_sale| %>
-      <tr>
+  <div class="row">
+    <div class="col-12 col-sm-8 col-xl-6">
+      <div class="row">
+        <div class="col-3 col-md-5">Date</div>
+        <div class="col-3 col-md-2">Customers</div>
+        <div class="col-2 col-md-2">Units</div>
+        <div class="col-4 col-md-3">Sales</div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-4 col-xl d-none d-sm-block">
+      <div class="row">
+        <div class="col-2"></div>
         <% if current_user.has_role? :global_admin %>
-          <td><%= daily_sale.site %></td>
+          <div class="col"></div>
         <% end %>
-        <td><%= l daily_sale.sale_date %></td>
-        <td><%= daily_sale.customers %></td>
-        <td><%= daily_sale.units %></td>
-        <td><%= daily_sale.sales_gross %></td>
-        <td><%= link_to 'Show', daily_sale %></td>
-        <td><%= link_to 'Edit', edit_daily_sale_path(daily_sale) %></td>
-        <td><%= link_to 'Destroy', daily_sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </div>
+    </div>
+
+  </div>
+  <%= render 'inline_form', daily_sale: @daily_sale %>
+
+  <% @daily_sales.each do |daily_sale| %>
+    <div class="row">
+      <div class="col-12 col-sm-8 col-xl-6">
+        <div class="row">
+          <div class="col-5"><%= l daily_sale.sale_date %></div>
+          <div class="col-2"><%= daily_sale.customers %></div>
+          <div class="col-2"><%= daily_sale.units %></div>
+          <div class="col-3"><%= daily_sale.sales_gross %></div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-4 col-xl">
+        <div class="row">
+          <div class="col-2"><%= link_to 'Edit', edit_daily_sale_path(daily_sale) %></div>
+          <% if current_user.has_role? :global_admin %>
+            <div class="col-10"><%= daily_sale.site %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <%= paginate @daily_sales, theme: 'twitter-bootstrap-4' %>
 <br>
 

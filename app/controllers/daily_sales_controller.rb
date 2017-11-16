@@ -1,7 +1,10 @@
 class DailySalesController < ApplicationController
+
+  before_action :new_daily_sale, only: [:index, :new]
   before_action :set_daily_sale, only: [:show, :edit, :update, :destroy]
-  before_action :set_daily_sales, only: [:index]
-  before_action :set_sites, only: [:new, :edit]
+  before_action :set_daily_sales, only: [:index, :create, :update]
+  before_action :set_sites, only: [:index, :new, :edit]
+
 
   # GET /daily_sales
   # GET /daily_sales.json
@@ -15,8 +18,6 @@ class DailySalesController < ApplicationController
 
   # GET /daily_sales/new
   def new
-    @daily_sale = DailySale.new
-    @daily_sale.sale_date ||= Date.current
   end
 
   # GET /daily_sales/1/edit
@@ -26,10 +27,12 @@ class DailySalesController < ApplicationController
   # POST /daily_sales
   # POST /daily_sales.json
   def create
-    # @daily_sale = DailySale.new( daily_sale_params )
-    
-    daily_sale_params[:site_id] ||= current_user.site_id
+    update
+  end
 
+  # PATCH/PUT /daily_sales/1
+  # PATCH/PUT /daily_sales/1.json
+  def update
     @daily_sale = DailySale.find_or_initialize_by(
       site_id: daily_sale_params[:site_id], 
       sale_date: daily_sale_params[:sale_date])
@@ -39,23 +42,9 @@ class DailySalesController < ApplicationController
     respond_to do |format|
       if @daily_sale.save
         format.html { redirect_to daily_sales_path, notice: 'Daily sale was successfully created.' }
-        format.json { render :show, status: :created, location: @daily_sale }
+        format.json { render :show, status: :updated, location: @daily_sale }
       else
-        format.html { render :new }
-        format.json { render json: @daily_sale.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /daily_sales/1
-  # PATCH/PUT /daily_sales/1.json
-  def update
-    respond_to do |format|
-      if @daily_sale.update(daily_sale_params)
-        format.html { redirect_to @daily_sale, notice: 'Daily sale was successfully updated.' }
-        format.json { render :show, status: :ok, location: @daily_sale }
-      else
-        format.html { render :edit }
+        format.html { render :index }
         format.json { render json: @daily_sale.errors, status: :unprocessable_entity }
       end
     end
@@ -72,6 +61,7 @@ class DailySalesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_daily_sales
     if current_user.has_role? :global_admin
@@ -83,6 +73,10 @@ class DailySalesController < ApplicationController
 
   def set_daily_sale
     @daily_sale = DailySale.find(params[:id])
+  end
+  
+  def new_daily_sale  
+    @daily_sale = DailySale.new(sale_date: Date.current, site_id: current_user.site_id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
