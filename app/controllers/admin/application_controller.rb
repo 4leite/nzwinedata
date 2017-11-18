@@ -12,6 +12,11 @@ module Admin
 
     load_and_authorize_resource
 
+    # in admin/base_controller.rb
+    def current_ability
+      @current_ability ||= AdminAbility.new(current_user)
+    end
+
     rescue_from CanCan::AccessDenied do |exception|
       flash[:warning] = exception.message
       redirect_to root_path

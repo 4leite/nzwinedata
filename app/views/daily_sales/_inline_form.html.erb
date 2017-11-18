@@ -1,7 +1,7 @@
 <%= form_with(model: daily_sale, local: true) do |f| %>
   <%= f.hidden_field :site_id %>
+  <%= hidden_field_tag :page, params[:page] %>
   <div class="form-group row">
-
     <div class="col-12">
       <% if daily_sale.errors.any? %>
         <div id="error_explanation">
@@ -17,26 +17,36 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-12 col-sm-8 col-xl-6">
-      <div class="row">
+    <div class="col-12 col-md-8 col-xl-6">
+      <div class="row no-gutters">
         <div class="col-5">
-          <%= f.date_field :sale_date, class: "form-control" %>
+          <%= f.date_field :sale_date, class: "form-control", disabled: action_name=='edit'  %>
         </div>
         <div class="col-2">
-        <%= f.number_field :customers, class: "form-control" %>
+        <%= f.number_field :customers, class: "form-control text-right", placeholder: 0 %>
         </div>
         <div class="col-2">
-        <%= f.number_field :units, class: "form-control" %>
+        <%= f.number_field :units, class: "form-control text-right", placeholder: 0 %>
         </div>
         <div class="col-3">
-        <%= f.number_field :sales_gross, class: "form-control" %>
+        <%= f.number_field :sales_gross, class: "form-control text-right", step: ".01", placeholder: "$0.00" %>
         </div>
+        <% if current_user.has_role? :global_admin %>
+          <%= f.text_field :site, class: "form-control", disabled: true %>
+        <% end %>
       </div>
     </div>
-    <div class="col-12 col-sm-12 col-xl-6">
+    <div class="col-12 col-xl-5">
+      <%= f.text_area :notes, class: "form-control textarea-autosize", placeholder: "notes" %>
+    </div>
+    <div class="col col-xl-1">
       <div class="row">
-        <%= f.text_field :notes, class: "col-10 form-control" %>
-        <%= f.submit "Insert", class: "col-2 btn btn-primary" %>
+        <div class="col col-xl-12">
+          <%= link_to "New", new_daily_sale_path, class: "btn btn-inverse" %>
+        </div>
+        <div class="col col-xl-12">
+          <%= f.submit submit_button_name, class: "btn btn-primary" %>
+        </div>
       </div>
     </div>
   </div>

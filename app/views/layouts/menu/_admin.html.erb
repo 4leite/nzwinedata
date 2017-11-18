@@ -1,8 +1,7 @@
 <div class="navbar-nav">
   <div class="nav-item dropdown">
-    <%= link_to_category("Admin", :admin, {
-            class: "nav-link dropdown-toggle",
-                    id: "navbarDropdownAdmin" }) %>    
+
+    <%= link_to_category "Admin", :admin, class: "nav-link dropdown-toggle" %>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
       <%= active_link_to current_user.site, admin_site_path(current_user.site_id), class: "dropdown-item" %>
       <div class="dropdown-divider"></div>
