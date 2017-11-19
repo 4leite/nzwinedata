@@ -1,11 +1,5 @@
 <div class="navbar-nav">
-  <div class="nav-item dropdown">
-    <%= link_to_category("Sales", :daily_sales, {
-      class: "nav-link dropdown-toggle",
-      id: "navbarDropdownMenuSales" } ) %>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuSales">
-      <%= active_link_to "List", daily_sales_path, class: "dropdown-item" %>
-      <%= active_link_to "New", new_daily_sale_path, class: "dropdown-item" %>
-    </div>
+  <div class="nav-item">
+    <%= link_to_category "Sales", daily_sales_path, :daily_sales, class: "nav-link" %>
   </div>
 </div>

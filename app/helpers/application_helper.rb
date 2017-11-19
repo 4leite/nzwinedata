@@ -21,21 +21,7 @@ module ApplicationHelper
     end
   end
 
-  def link_to_category(obj, cat, html_options = {})
-    if defined?(controller.namespace) 
-      active = "active" if cat.to_s == controller.namespace
-    else
-      active = "active" if cat.to_s == controller_name
-    end
-    link_to obj, "#", html_options.merge!(class: "#{active}", 
-                                           'data-toggle': "dropdown", 
-                                           'aria-haspopup': "true", 
-                                           'aria-expanded': "false",
-                                          ) { | key, v1, v2 | "#{v1} #{v2}" }
-  end
-
-
-  def link_to_category_b(obj, cat, url, html_options = {})
+  def link_to_category(obj, url, cat, html_options = {})
     if defined?(controller.namespace) 
       active = "active" if cat.to_s == controller.namespace
     else

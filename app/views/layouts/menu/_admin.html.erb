@@ -1,13 +1,19 @@
 <div class="navbar-nav">
   <div class="nav-item dropdown">
 
-    <%= link_to_category "Admin", :admin, class: "nav-link dropdown-toggle" %>
+    <%= link_to_category "Admin", "#", :admin, {
+      class: "nav-link dropdown-toggle",
+      id: "navbarDropdownMenuAdmin",                                       
+      'data-toggle': "dropdown",                                                                                   
+      'aria-haspopup': "true",
+      'aria-expanded': "false",
+    } %>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
-      <%= active_link_to current_user.site, admin_site_path(current_user.site_id), class: "dropdown-item" %>
+      <%= active_link_to current_user.site, admin_site_path(current_user.site_id), class: "dropdown-item" if can? :show, current_user.site  %>
       <div class="dropdown-divider"></div>
-      <%= active_link_to "Users", admin_users_path, class: "dropdown-item" %>
-      <%= active_link_to "Sales", admin_daily_sales_path, class: "dropdown-item" %>
-      <%= active_link_to "Sites", admin_sites_path, class: "dropdown-item" if can? :manage, Site %>
+      <%= active_link_to "Users", admin_users_path, class: "dropdown-item" if can? :read, User %>
+      <%= active_link_to "Sales", admin_daily_sales_path, class: "dropdown-item" if can? :read, DailySale %>
+      <%= active_link_to "Sites", admin_sites_path, class: "dropdown-item" if can? :read, Site %>
     </div>
   </div>
 </div>

@@ -1,9 +1,14 @@
 <div class="navbar-nav">
   <% if user_signed_in? %>
     <div class="nav-item dropdown">
-      <%= link_to_category(current_user, :registrations, { 
+      <%= link_to_category current_user, "#", :registrations, { 
         class: "nav-link dropdown-toggle", 
-        id: "navbarDropdownMenuUser" })  %> 
+        id: "navbarDropdownMenuUser",
+        'data-toggle': "dropdown",
+        'aria-haspopup': "true",
+        'aria-expanded': "false",
+      } %> 
+
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuUser">
         <%= active_link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
         <%= active_link_to "Sign out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>

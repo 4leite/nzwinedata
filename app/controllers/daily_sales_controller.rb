@@ -32,7 +32,7 @@ class DailySalesController < ApplicationController
 
     respond_to do |format|
       if @daily_sale.save
-        format.html { redirect_to daily_sales_path, notice: 'Daily Sale was successfully created.' }
+        format.html { redirect_to new_daily_sale_path(page: params[:page]), notice: 'Daily Sale was successfully created.' }
         format.json { render :show, status: :created, location: @daily_sale }
       else
         format.html { render :index }
@@ -70,7 +70,11 @@ class DailySalesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_daily_sales
     if current_user.has_role? :global_admin
-      @daily_sales = DailySale.page params[:page]
+      if params[:site_id]
+        @daily_sales = Site.find(params[:site_id]).daily_sales.page params[:page]
+      else
+        @daily_sales = DailySale.page params[:page]
+      end
     else
       @daily_sales = current_user.site.daily_sales.page params[:page]
     end

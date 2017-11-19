@@ -24,8 +24,14 @@ class User < ApplicationRecord
     roles.include?(role)
   end
 
-  def self.all_roles
-    ROLES.map { |r| [r] }
+  def ability
+    @ability ||= Ability.new(self)
+  end
+  
+  delegate :can?, :cannot?, :to => :ability
+
+  def available_roles
+    ROLES.select{ |r| can? r.to_sym, self }.map { |r| r }
   end
   
   def to_s

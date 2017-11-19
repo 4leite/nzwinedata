@@ -2,6 +2,6 @@
   <%= f.label field.attribute %>
 </div>
 <div class="field-unit__field">
-  <%= f.select :roles, options_for_select(User.all_roles, field.to_array) , {},
-    multiple: :true, size: User.all_roles.size %>
+  <%= f.select :roles, options_for_select(current_user.available_roles, field.to_array) , {},
+    multiple: :true, size: current_user.available_roles.size %>
 </div>
