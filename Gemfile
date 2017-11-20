@@ -67,3 +67,4 @@ gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 
 gem 'spreadsheet_architect'
+gem 'axlsx', git: "https://github.com/randym/axlsx"

@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/randym/axlsx
+  revision: c8ac844572b25fda358cc01d2104720c4c42f450
+  specs:
+    axlsx (2.1.0.pre)
+      htmlentities (~> 4.3.4)
+      mimemagic (~> 0.3)
+      nokogiri (>= 1.6.6)
+      rubyzip (>= 1.2.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -52,10 +62,6 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.6)
       execjs
-    axlsx (2.0.1)
-      htmlentities (~> 4.3.1)
-      nokogiri (>= 1.4.1)
-      rubyzip (~> 1.0.0)
     axlsx_styler (0.1.7)
       activesupport (>= 3.1)
       axlsx (~> 2.0)
@@ -124,6 +130,7 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
+    mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
@@ -147,11 +154,11 @@ GEM
       rack (>= 1.6.2, < 3)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    puma (3.10.0)
+    puma (3.11.0)
     rack (2.0.3)
     rack-proxy (0.6.2)
       rack
-    rack-test (0.7.0)
+    rack-test (0.8.0)
       rack (>= 1.0, < 3)
     rails (5.1.4)
       actioncable (= 5.1.4)
@@ -191,7 +198,7 @@ GEM
       builder (>= 3.0)
       rubyzip (>= 1.0)
     ruby_dep (1.5.0)
-    rubyzip (1.0.0)
+    rubyzip (1.2.1)
     sass (3.5.3)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -250,6 +257,7 @@ PLATFORMS
 
 DEPENDENCIES
   administrate
+  axlsx!
   bootstrap4-kaminari-views
   byebug
   cancancan
