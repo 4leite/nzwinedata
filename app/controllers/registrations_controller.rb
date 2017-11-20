@@ -14,8 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def authorize_roles
-    params[:user][:roles].select! { |r| r.present? }
-    params[:user][:roles].each { |r| authorize!(r.to_sym, @user) }
+    params[:user][:roles].reject{ |r| r.empty? }.each { |r| authorize!(r.to_sym, @user) }
   end
 
 end

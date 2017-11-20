@@ -66,3 +66,4 @@ gem 'bootstrap4-kaminari-views'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 
+gem 'spreadsheet_architect'

@@ -1,7 +1,17 @@
 <h1>Daily Sales</h1>
-<%= render 'inline_header' %>
+<div class="row justify-content-around">
+  <div class="col">
+    <%= link_to "Export CSV", daily_sales_path(params.merge(format: :csv).permit!), class: "btn btn-secondary" %>
+    <%= link_to "Export ODS", daily_sales_path(params.merge(format: :ods).permit!), class: "btn btn-secondary" %> 
+    <%= link_to "Export XLSX", daily_sales_path(params.merge(format: :xlsx).permit!), class: "btn btn-secondary" %>
+  </div>
+  <div class="col-auto">
 
-<%= render 'inline_form', daily_sale: @daily_sale %>
+    <%= link_to "New", new_daily_sale_path(page: page), class: "btn btn-secondary" %>
+  </div>
+</div>
+
+<%= render 'inline_header' %>
 
 <%= render partial: 'inline_show', collection: @daily_sales, as: :daily_sale, locals: { page: @page } %>
 

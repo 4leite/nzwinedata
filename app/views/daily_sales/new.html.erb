@@ -1,5 +1,9 @@
 <h1>New Daily Sale</h1>
+<%= render 'inline_header' %>
 
-<%= render 'form', daily_sale: @daily_sale %>
+<%= render 'inline_form', daily_sale: @daily_sale %>
 
-<%= link_to 'Back', daily_sales_path %>
+<%= render partial: 'inline_show', collection: @daily_sales, as: :daily_sale, locals: { page: @page } %>
+
+<%= render 'inline_footer' %>
+

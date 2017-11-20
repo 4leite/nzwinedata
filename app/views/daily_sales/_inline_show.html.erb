@@ -3,7 +3,7 @@
 	 <div class="row">
       <div class="col-5 text-center">
         <%= bold_active_link_to(l(daily_sale.sale_date),
-                                edit_daily_sale_path(daily_sale, page: params[:page]) ) %>
+                                edit_daily_sale_path(daily_sale, page: page) ) %>
       </div>
 		<div class="col-2 text-right"><%= daily_sale.customers %></div>
 		<div class="col-2 text-right"><%= daily_sale.units %></div>
