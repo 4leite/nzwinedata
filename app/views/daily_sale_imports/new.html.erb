@@ -1,0 +1,36 @@
+<h1>Import Sales Data</h1>
+<p>A CSV, ODS or Excel file can be used to import records. The first row should containt the column names. The following column names are expected.</p>
+
+<ul>
+  <% DailySaleImport.columns.each do |column, name| %>
+    <li>
+      <strong><%= name %></strong>
+      (<%= DailySale.column_for_attribute(column).type.to_s.titleize %>)
+    </li>
+  <% end %>
+</ul>
+
+<p>If the <strong>Date</strong> already exists, it will update the matching record instead of creating a new one.</p>
+
+
+<%= form_for @daily_sale_import do |f| %>
+  <%= f.hidden_field :site_id, value: current_user.site_id %>
+  <div class="form-group row">
+    <div class="col-auto">
+      <%= f.file_field :file  %>
+    </div>
+    <div class="col-auto">
+      <%= f.submit "Import", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<% if @daily_sale_import.errors.any? %>
+  <h2><%= pluralize(@daily_sale_import.errors.count, :error) %> prohibited this import from completing:</h2>
+  <ul>
+    <% @daily_sale_import.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
