@@ -11,20 +11,19 @@ class DailySale < ApplicationRecord
 
   paginates_per 20
 
+  SPREADSHEET_COLUMNS = [ 
+    ['Date', :sale_date],
+    ['# Visitors', :customers],
+    ['# Bottles Sold', :units],
+    ['$ Bottles Sold', :sales_gross],
+    ['Notes', :notes],
+  ]
+
+  ADMIN_SPREADSHEET_COLUMNS = [['Winery Id', :site_id]] + SPREADSHEET_COLUMNS
+
   monetize :sales_gross_cents
 
-  def self.to_csv_old
-	 CSV.generate do |csv|
-		csv << ['Date','# Customers','# Bottles Sold','$ Bottles Sold','Notes']
-		all.each do |ds|
-		  csv << [
-			 I18n.l(ds.sale_date),
-			 ds.customers,
-			 ds.units,
-			 ds.sales_gross,
-			 ds.notes,
-		  ]
-		end
-	 end
+  def spreadsheet_columns
+    SPREADSHEET_COLUMNS
   end
 end

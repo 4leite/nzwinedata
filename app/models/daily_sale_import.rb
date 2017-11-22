@@ -5,10 +5,16 @@ class DailySaleImport
   extend ActiveModel::Naming
 
   validates :file, presence: true
-  validates :site_id, presence: true
-  validate  :file_type_validator
 
   attr_accessor :file, :site_id
+
+  SPREADSHEET_COLUMNS = { 
+    sale_date: "Date",
+    customers: "# Visitors",
+    units: "# Bottles Sold",
+    sales_gross: "$ Bottles Sold",
+    notes: "Notes",
+  }
 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }
@@ -16,15 +22,6 @@ class DailySaleImport
 
   def persisted?
     false
-  end
-
-  def self.columns
-    { sale_date: "Date",
-      customers: "# Customers",
-      units: "# Bottles Sold",
-      sales_gross: "$ Bottles Sold",
-      notes: "Notes",
-    }
   end
 
   def save
@@ -42,12 +39,8 @@ class DailySaleImport
       false
     end
   end
-  
-  private
 
-  def file_type_validator
-    true
-  end
+  private
 
   def imported_daily_sales
     @imported_daily_sales ||= load_imported_daily_sales
@@ -58,17 +51,18 @@ class DailySaleImport
       spreadsheet = Roo::Spreadsheet.open(file.path)
       header = spreadsheet.row(1)
     rescue => ex
-      puts "Error"
-      errors.add :base, "Spreadsheet import failed: #{ex}"
+      Rails.logger.error "File upload failed with errror: #{ex}"
+      errors.add :base, "Spreadsheet import failed, please ensure you are uploading a valid file"
       return false
     end
-    (2..spreadsheet.last_row).collect do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
 
-      daily_sale = DailySale.find_or_initialize_by(sale_date: row["Date"], site_id: site_id)
-      daily_sale.attributes = Hash[self.class.columns.map{|k,v| [ k, row[v] ] } ]
+    (2..spreadsheet.last_row).collect do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose] 
+
+      daily_sale = DailySale.find_or_initialize_by(sale_date: row["Date"], site_id: ( site_id || row["Winery Id"] ))
+      daily_sale.attributes = Hash[SPREADSHEET_COLUMNS.map{|k,v| [ k, row[v] ] } ]
       daily_sale
     end
   end
-  
+
 end

@@ -14,7 +14,7 @@ module ApplicationHelper
     case action_name
     when 'index', 'new', 'create'
       "Insert"
-    when :edit
+    when 'edit'
       "Update"
     else
       "Submit"

@@ -1,3 +1,17 @@
+<div class="row justify-content-end">
+  <div class="col-auto">
+    <%= link_to "Import", new_daily_sale_import_path, class: "btn btn-secondary" %>
+  </div>
+  <div class="col-auto">
+    <%= form_with url: search_daily_sales_path, local: true, class: "form-inline" do |f| %>
+      <%= select_tag :format, options_for_select([["CSV", "csv"], ["ODS", "ods"], ["XLS", "xlsx"]]), class: "form-control" %>
+      <%= button_to "Export", search_daily_sales_path, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+  <div class="col-auto">
+    <%= link_to "New", new_daily_sale_path(page: page), class: "btn btn-secondary" %>
+  </div>
+</div>
 <div class="row">
   <div class="col-12 col-md-8 col-xl-6">
     <div class="row text-center">
@@ -5,10 +19,10 @@
         <%= sortable_link_to :sale_date, DailySale, title: "Date" %>
       </div>
       <div class="col-3"> 
-        <%= sortable_link_to :customers, DailySale, title: "Customers" %>
+        <%= sortable_link_to :customers, DailySale, title: "Visitors" %>
       </div>
       <div class="col-2">
-        <%= sortable_link_to :units, DailySale, title: "Units" %>
+        <%= sortable_link_to :units, DailySale, title: "Bottles" %>
       </div>
       <div class="col-3">
         <%= sortable_link_to :sales_gross_cents, DailySale, title: "Sales" %>

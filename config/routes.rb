@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   get 'home', to: 'home#long', as: 'home_long'
 
-  resources :daily_sales
+  resources :daily_sales do
+    collection do
+      post :search, to: :search
+    end
+  end
 
   get "/daily_sale_imports", to: redirect("daily_sale_imports/new", status: 302)
   resources :daily_sale_imports, only: [:new, :create] 

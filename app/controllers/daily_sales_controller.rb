@@ -1,8 +1,9 @@
 class DailySalesController < ApplicationController
 
-  before_action :new_daily_sale, only: [:index, :new]
+  before_action :new_daily_sale, only: [:new]
   before_action :set_daily_sale, only: [:show, :edit, :update, :destroy]
-  before_action :set_daily_sales, only: [:index, :new, :create, :update, :edit]
+  before_action :set_daily_sales, only: [:index, :new, :create, :update, :edit, :search]
+  before_action :paginate_daily_sales, only: [:index, :new, :create, :update, :edit]
   before_action :set_sites, only: [:index, :new, :edit]
 
   helper_method :sort_column, :sort_order, :page
@@ -12,9 +13,19 @@ class DailySalesController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.xlsx { render xlsx: @daily_sales.to_xlsx }
-      format.ods { render ods: @daily_sales.to_ods }
-      format.csv { render csv: @daily_sales.to_csv }
+      format.json
+    end
+  end
+
+  def search
+    respond_to do |format|
+      format.html { 
+        paginate_daily_sales
+        render :index
+      }
+      format.xlsx { render xlsx: @daily_sales.to_xlsx(current_spreadsheet_options), filename: current_filename }
+      format.ods { render ods: @daily_sales.to_ods(current_spreadsheet_options), filename: current_filename }
+      format.csv { render csv: @daily_sales.to_csv(current_spreadsheet_options), filename: current_filename }
       format.json
     end
   end
@@ -74,6 +85,22 @@ class DailySalesController < ApplicationController
 
   private
 
+  def current_spreadsheet_options
+    if current_user.has_role? :global_admin
+      { spreadsheet_columns: DailySale::ADMIN_SPREADSHEET_COLUMNS }
+    else
+      { spreadsheet_columns: DailySale::SPREADSHEET_COLUMNS }
+    end
+  end
+
+  def current_filename
+    if current_user.has_role? :global_admin
+      "sales_data_all_#{Date.today}"
+    else
+      "sales_data_#{current_user.site}_#{Date.today}"
+    end
+  end
+
   def sort_column
     params[:sort].to_sym if DailySale.column_names.include?(params[:sort]) 
   end
@@ -82,13 +109,16 @@ class DailySalesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
+  def paginate_daily_sales
+    @daily_sales = @daily_sales.page(page)
+  end
+
   def page
     params[:page].to_i if params[:page]
   end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_daily_sales
-
     if current_user.has_role? :global_admin
       if params[:site_id]
         @daily_sales = Site.find(params[:site_id]).daily_sales
@@ -100,9 +130,6 @@ class DailySalesController < ApplicationController
     end
 
     @daily_sales = @daily_sales.reorder(sort_column => sort_order) if sort_column
-
-    @daily_sales = @daily_sales.page(page) unless %w(text/csv application/xml application/json).include?(request.format)
-
   end
 
   def set_daily_sale
