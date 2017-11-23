@@ -59,6 +59,11 @@ gem 'rails-i18n'
 gem 'devise'
 gem 'cancancan'
 gem 'omniauth'
+
+# gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
+# gem 'rails_email_validator'
+# gem 'easy_captcha'
+
 gem 'money-rails'
 gem 'administrate'
 gem 'kaminari'
