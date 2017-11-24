@@ -67,16 +67,13 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # devise stuff
-  config.action_mailer.default_url_options = { host: ENV["MAIL_DOMAIN"] }
+  config.action_mailer.default_url_options = { host: "data.nzwinetours.co.nz" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              ENV["MAIL_SMTP_ADDRESS"],
-    port:                 587,
-    domain:               ENV["MAIL_DOMAIN"],
-    user_name:            ENV["MAIL_USERNAME"],
-    password:             ENV["MAIL_PASSWORD"],
-    authentication:       'plain',
-    enable_starttls_auto: true,
+#    address:              "smtp.gmail.com",
+#    port:                 587,
+#    authentication:       'plain',
+#    enable_starttls_auto: true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
