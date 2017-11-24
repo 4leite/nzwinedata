@@ -24,4 +24,6 @@
 /config/database.yml
 /config/secrets.yml
 
-/administrate-field-nested_has_many
+/public/assets/
+/vendor/bundle/
+passengerfile.json
