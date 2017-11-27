@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :sites 
   end
 
-  devise_for :users, controllers: { registrations: "registrations" } 
+  match '/users/confirmation', to: 'users/confirmations#update', via: :post, as: :update_user_confirmation
+  devise_for :users, controllers: { registrations: "users/registrations", confirmations: "users/confirmations" } 
+
 
   root to: 'home#index'
 
@@ -22,8 +24,6 @@ Rails.application.routes.draw do
   resources :daily_sale_imports, only: [:new, :create] 
 
 
-  scope 'sites/:site_id' do
-    resources :daily_sales
-  end
+  resources 'sites', only: [:index, :show, :edit]
 
 end

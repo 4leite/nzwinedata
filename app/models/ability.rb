@@ -16,11 +16,12 @@ class Ability
 
   def guest
     can :manage, :home
-    can [:show, :create, :update, :destroy], User, id: @user.id
+    can :show, User, id: @user.id
   end
 
   def miner
-    nav_miner
+    can :miner, :navbar
+    can [:show, :update, :destroy], User, id: @user.id
     can :show, Site, id: @user.site_id
     can :manage, DailySale, site_id: @user.site_id
     guest
@@ -28,8 +29,7 @@ class Ability
 
   def site_admin
 
-    nav_miner
-    nav_admin
+    can [:mine, :site, :admin], :navbar
     can [:show, :update], Site, id: @user.site_id
     can [:miner, :site_admin, :create, :update, :destroy, :read], User, site_id: @user.site_id
 
@@ -45,16 +45,6 @@ class Ability
 
   def dev
     can :manage, :all
-  end
-
-  private
-
-  def nav_miner
-    can :mine, :navbar
-  end
-
-  def nav_admin
-    can :admin, :navbar
   end
 
 end

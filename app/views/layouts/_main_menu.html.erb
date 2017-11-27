@@ -11,6 +11,7 @@
 
       <div class="navbar-nav mr-auto">
         <%= render "layouts/menu/miner" if can? :mine, :navbar %>
+        <%= render "layouts/menu/site" if can? :site, :navbar %>
         <%= render "layouts/menu/admin" if can? :admin, :navbar %>
       </div>
       <div class="navbar-nav ml-auto">

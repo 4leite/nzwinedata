@@ -1,7 +1,7 @@
 class DailySale < ApplicationRecord
   include SpreadsheetArchitect
 
-  belongs_to :site
+  belongs_to :site, inverse_of: :daily_sales
 
   default_scope { order(sale_date: :desc) }
 

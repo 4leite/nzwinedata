@@ -1,0 +1,8 @@
+<h1>Sites</h1>
+
+<%= render 'inline_header' %>
+
+<%= render partial: 'inline_show', collection: @sites, as: :site, locals: { page: @page } %>
+
+<%= render 'inline_footer' %>
+
