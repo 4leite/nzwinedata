@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   scope '/admin', as: 'admin' do
     resources :users, only: [:destroy]
   end
-  match '/users/confirmation', to: 'users/confirmations#update', via: :post, as: :update_user_confirmation
-  
+
+  as :user do
+    match '/user/confirmation', to: 'users/confirmations#update', via: :patch, as: :update_user_confirmation
+  end
+ 
   devise_for :users, controllers: { registrations: "users/registrations", confirmations: "users/confirmations" } 
 
   resources :daily_sales do

@@ -75,9 +75,8 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   end
 
   def do_confirm
-    @confirmable.confirm!
+    @confirmable.confirm
     set_flash_message :notice, :confirmed
-    puts "here"
     sign_in_and_redirect(resource_name, @confirmable)
 #    sign_in_and_redirect(daily_sales_path)
   end
