@@ -1,27 +1,24 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :require_no_authentication
 
-  load_and_authorize_resource class: User
+  load_and_authorize_resource class: User, param_method: :configure_sign_up_params
 
-  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:new, :create]
   # before_action :configure_account_update_params, only: [:update]
   before_action :authorize_roles, only: [:create, :update]
 
-  before_action :set_sites_and_roles, only: [:new]
+  before_action :set_sites_and_roles, only: [:new, :create]
 
   # GET /resource/sign_up
   def new
-    set_sites_and_roles
-
-    build_resource({site_id: params[:site_id]})
+    build_resource(site_id: params[:site_id])
     yield resource if block_given?
     respond_with resource
   end
 
   # POST /resource
   def create
-    set_sites_and_roles
-     super
+    super
   end
 
   # GET /resource/edit
@@ -53,8 +50,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up) do |user|
-      user.permit( :email, { roles: [] }, :site_name, :site_id)
+      user.permit( :email, { roles: [] }, :site_name, :site_id )
     end
+  end
+
+  def registrations_params
+    params.require(:sign_up).permit(:email, { roles: [] }, :site_name, :site_id)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -78,6 +79,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def authorize_roles
-    params[:user][:roles].reject{ |r| r.empty? }.each{ authorize!(r.to_sym, User) } if params[:user][:roles]
+    params[:user][:roles].reject{ |r| r.empty? }.each{ |r| authorize!(r.to_sym, User) } if params[:user][:roles]
   end
 end

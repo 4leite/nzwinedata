@@ -1,5 +1,9 @@
+<h1><%= @site.name %></h1>
+
 <%= render 'users/inline_header' %>
 
 <%= render partial: 'users/inline_show', collection: @users, as: :user, locals: { page: @page } %>
 
 <%= render 'users/inline_footer' %>
+
+<%= link_to "All Sites", sites_path if can? :index, Site %>
