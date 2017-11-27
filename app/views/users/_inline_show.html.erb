@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col">
+	 <div class="row">
+      <div class="col">
+        <%= user.email %>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="row">
+      <%= link_to "Remove", admin_user_path(user), method: :delete if can? :destroy, user %>
+    </div>
+  </div>
+</div>
+

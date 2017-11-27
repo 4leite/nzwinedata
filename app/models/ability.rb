@@ -11,12 +11,11 @@ class Ability
       @user.roles.each { |role| send role }
     end
 
-	 can :manage, :home
+    can :manage, :home
   end
 
   def guest
     can :manage, :home
-    can :show, User, id: @user.id
   end
 
   def miner
@@ -32,7 +31,6 @@ class Ability
     can [:mine, :site, :admin], :navbar
     can [:show, :update], Site, id: @user.site_id
     can [:miner, :site_admin, :create, :update, :destroy, :read], User, site_id: @user.site_id
-
     #can :manage, User, site_id: @user.site_id
     can [:read, :destroy], DailySale, site_id: @user.site_id
 

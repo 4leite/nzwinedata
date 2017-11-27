@@ -1,30 +1,27 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  skip_before_action :require_no_authentication
+
+  load_and_authorize_resource class: User
+
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  skip_before_action :require_no_authentication
   before_action :authorize_roles, only: [:create, :update]
-  before_action :set_roles, only: [:new, :create]
-  before_action :set_sites, only: [:new, :create]
+
+  before_action :set_sites_and_roles, only: [:new]
 
   # GET /resource/sign_up
   def new
-    if can? :new, User
-      super
-    else
-      flash[:info] = 'Sign up is currently invite only, please contact us if you wish to participate.'
-      redirect_to root_path
-    end
+    set_sites_and_roles
+
+    build_resource({site_id: params[:site_id]})
+    yield resource if block_given?
+    respond_with resource
   end
 
   # POST /resource
   def create
-    if can? :new, User
-      super
-      puts "made it here"
-    else
-      flash[:info] = 'Sign up is currently invite only, please contact us if you wish to participate.'
-      redirect_to root_path
-    end
+    set_sites_and_roles
+     super
   end
 
   # GET /resource/edit
@@ -74,16 +71,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
-  #
-  def set_sites
+
+  def set_sites_and_roles
     @sites = Site.all if current_user.has_role? :global_admin
-  end
-  
-  def set_roles
     @roles = current_user.available_roles
   end
 
   def authorize_roles
-    params[:user][:roles].reject{ |r| r.empty? }.each { |r| authorize!(r.to_sym, @user) } if params[:user][:roles]
+    params[:user][:roles].reject{ |r| r.empty? }.each{ authorize!(r.to_sym, User) } if params[:user][:roles]
   end
 end

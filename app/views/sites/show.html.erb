@@ -1,3 +1,5 @@
-<p id="notice"><%= notice %></p>
+<%= render 'users/inline_header' %>
 
-<%= link_to 'Back', sites_path %>
+<%= render partial: 'users/inline_show', collection: @users, as: :user, locals: { page: @page } %>
+
+<%= render 'users/inline_footer' %>

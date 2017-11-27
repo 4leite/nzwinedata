@@ -9,11 +9,10 @@
       'aria-expanded': "false",
     } %>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
-      <%= active_link_to current_user.site, admin_site_path(current_user.site_id), class: "dropdown-item" if can? :show, current_user.site  %>
+      <%= active_link_to current_user.site, site_path(current_user.site_id), class: "dropdown-item" if can? :show, current_user.site  %>
       <div class="dropdown-divider"></div>
-      <%= active_link_to "Users", admin_users_path, class: "dropdown-item" if can? :read, User %>
-      <%= active_link_to "Sales", admin_daily_sales_path, class: "dropdown-item" if can? :read, DailySale %>
-      <%= active_link_to "Sites", admin_sites_path, class: "dropdown-item" if can? :read, Site %>
+      <%= active_link_to "Add User", new_user_registration_path, class: "dropdown-item" if can? :create, User %>
+      <%= active_link_to "All Sites", sites_path, class: "dropdown-item" if can? :index, Site %>
     </div>
   </div>
 </div>

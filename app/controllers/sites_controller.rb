@@ -1,21 +1,18 @@
 class SitesController < ApplicationController
+  load_and_authorize_resource
+
   before_action :set_site, only: [:show, :edit, :update, :destroy]
 
   # GET /sites
   # GET /sites.json
   def index
-    redirect_to site_path(current_user.site) unless current_user.has_role? :global_admin
     @sites = Site.all.page(params[:page])
   end
 
   # GET /sites/1
   # GET /sites/1.json
   def show
-  end
-
-  # GET /sites/new
-  def new
-    @site = Site.new
+    @users = @site.users.page(params[:page])
   end
 
   # GET /sites/1/edit

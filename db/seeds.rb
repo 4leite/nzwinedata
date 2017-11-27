@@ -22,6 +22,11 @@ user2 = User.create(site: site1, roles: "global_admin", email: "jaketipler@gmail
 user3 = User.create(site: site2, roles: "site_admin", email: "manager@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
 user4 = User.create(site: site2, roles: "miner", email: "miner@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
 
+user1.confirm
+user2.confirm
+user3.confirm
+user4.confirm
+
 (Date.current-2.months..Date.current).each do |d|
   a_daily_sale = DailySale.find_or_initialize_by(site_id: site2.id, sale_date: d)
   a_daily_sale.update_attributes(customers: Random.rand(1...20), units: Random.rand(1...200), sales_gross: Random.rand(1...9000))
