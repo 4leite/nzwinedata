@@ -56,9 +56,8 @@ class DailySaleImport
       return false
     end
 
-    (2..spreadsheet.last_row).collect do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose] 
-
+    (2..spreadsheet.last_row).map{ |i| spreadsheet.row(i) }.select{ |r| r.any?}.map do |r|
+      row = Hash[[header, r].transpose] 
       daily_sale = DailySale.find_or_initialize_by(sale_date: row["Date"], site_id: ( site_id || row["Winery Id"] ))
       daily_sale.attributes = Hash[SPREADSHEET_COLUMNS.map{|k,v| [ k, row[v] ] } ]
       daily_sale

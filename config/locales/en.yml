@@ -30,4 +30,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      daily_sale:
+        sale_date: "Date"
+        site_id: "Winery Id"
+        customers: "# Visitors"
+        units: "# Bottles Sold"
+        sales_gross: "$ Bottles Sold"
+        notes: "Notes"
+
+
