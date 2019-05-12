@@ -18,14 +18,12 @@ site2 = Site.find_or_create_by(name: "A Winery")
 site3 = Site.find_or_create_by(name: "Winery with a really long name")
 
 user1 = User.create(site: site1, roles: [ "dev", "global_admin" ], email: "jon@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
-user2 = User.create(site: site1, roles: "global_admin", email: "jaketipler@gmail.com", password: default_pwd, password_confirmation: default_pwd)
-user3 = User.create(site: site2, roles: "site_admin", email: "manager@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
-user4 = User.create(site: site2, roles: "miner", email: "miner@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
+user2 = User.create(site: site2, roles: "site_admin", email: "manager@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
+user3 = User.create(site: site2, roles: "miner", email: "miner@4pi.nz", password: default_pwd, password_confirmation: default_pwd)
 
 user1.confirm
 user2.confirm
 user3.confirm
-user4.confirm
 
 (Date.current-2.months..Date.current).each do |d|
   a_daily_sale = DailySale.find_or_initialize_by(site_id: site2.id, sale_date: d)
